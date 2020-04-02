@@ -1,0 +1,47 @@
+[   
+    {
+        "categoryId": 1,
+        "categoryName" :"Animals"
+    },
+    {
+        "categoryId": 2,
+        "categoryName" :"Arts, Culture, Humanities"
+    },
+    {
+        "categoryId": 3,
+        "categoryName" :"Education"
+    },
+    {
+        "categoryId": 4,
+        "categoryName" :"Environment"
+    },
+    {
+        "categoryId": 5,
+        "categoryName" :"Health"
+    },
+    {
+        "categoryId": 6,
+        "categoryName" :"Human Services"
+    },
+    {
+        "categoryId": 7,
+        "categoryName" :"International"
+    },
+    {
+        "categoryId": 8,
+        "categoryName" :"Human and Civil Rights"
+    },
+    {
+        "categoryId": 9,
+        "categoryName" :"Religion"
+    },
+    {
+        "categoryId": 10,
+        "categoryName" :"Community Development"
+    },
+    {
+        "categoryId": 11,
+        "categoryName" :"Research and Public Policy"
+    }
+
+]
