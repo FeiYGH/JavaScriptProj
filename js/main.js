@@ -3,207 +3,375 @@
 *    Charities Scatter Plot using D3.js
 *    Fei Yang
 */
+const states = [
+    'Alabama',
+    'Alaska',
+    'Arizona',
+    'Arkansas',
+    'California',
+    'Colorado',
+    'Connecticut',
+    'Delaware',
+    'District of Columbia',
+    'Florida',
+    'Georgia',
+    'Hawaii',
+    'Idaho',
+    'Illinois',
+    'Indiana',
+    'Iowa',
+    'Kansas',
+    'Kentucky',
+    'Louisiana',
+    'Maine',
+    'Maryland',
 
-//array of api to get data for different categories (1-11) with min rating of 3 and max rating of 4
-const apiArray = [
-    "https://api.data.charitynavigator.org/v2/Organizations?app_id=0f46ea13&app_key=7780b871244de17fae05c573d2fa3414&pageSize=999&rated=true&categoryID=1&minRating=3&maxRating=4",
-    "https://api.data.charitynavigator.org/v2/Organizations?app_id=0f46ea13&app_key=7780b871244de17fae05c573d2fa3414&pageSize=999&rated=true&categoryID=2&minRating=3&maxRating=4",
-    "https://api.data.charitynavigator.org/v2/Organizations?app_id=0f46ea13&app_key=7780b871244de17fae05c573d2fa3414&pageSize=999&rated=true&categoryID=3&minRating=3&maxRating=4",
-    "https://api.data.charitynavigator.org/v2/Organizations?app_id=0f46ea13&app_key=7780b871244de17fae05c573d2fa3414&pageSize=999&rated=true&categoryID=4&minRating=3&maxRating=4",
-    "https://api.data.charitynavigator.org/v2/Organizations?app_id=0f46ea13&app_key=7780b871244de17fae05c573d2fa3414&pageSize=999&rated=true&categoryID=5&minRating=3&maxRating=4",
-    "https://api.data.charitynavigator.org/v2/Organizations?app_id=0f46ea13&app_key=7780b871244de17fae05c573d2fa3414&pageSize=999&rated=true&categoryID=6&minRating=3&maxRating=4",
-    "https://api.data.charitynavigator.org/v2/Organizations?app_id=0f46ea13&app_key=7780b871244de17fae05c573d2fa3414&pageSize=999&rated=true&categoryID=7&minRating=3&maxRating=4",
-    "https://api.data.charitynavigator.org/v2/Organizations?app_id=0f46ea13&app_key=7780b871244de17fae05c573d2fa3414&pageSize=999&rated=true&categoryID=8&minRating=3&maxRating=4",
-    "https://api.data.charitynavigator.org/v2/Organizations?app_id=0f46ea13&app_key=7780b871244de17fae05c573d2fa3414&pageSize=999&rated=true&categoryID=9&minRating=3&maxRating=4",
-    "https://api.data.charitynavigator.org/v2/Organizations?app_id=0f46ea13&app_key=7780b871244de17fae05c573d2fa3414&pageSize=999&rated=true&categoryID=10&minRating=3&maxRating=4",
-    "https://api.data.charitynavigator.org/v2/Organizations?app_id=0f46ea13&app_key=7780b871244de17fae05c573d2fa3414&pageSize=999&rated=true&categoryID=11&minRating=3&maxRating=4"
+    // 'Massachusetts',
+    // 'Michigan',
+    // 'Minnesota',
+    // 'Mississippi',
+    // 'Missouri',
+    // 'Montana',
+    // 'Nebraska',
+    // 'Nevada',
+    // 'New Hampshire',
+    // 'New Jersey',
+    // 'New Mexico',
+    // 'New York',
+    // 'North Carolina',
+    // 'North Dakota',
+    // 'Ohio',
+    // 'Oklahoma',
+    // 'Oregon',
+    // 'Pennsylvania',
+    // 'Rhode Island',
+    // 'South Carolina',
+    // 'South Dakota',
+    // 'Tennessee',
+    // 'Texas',
+    // 'Utah',
+    // 'Vermont',
+    // 'Virginia',
+    // 'Washington',
+    // 'West Virginia',
+    // 'Wisconsin',
+    // 'Wyoming'
 ]
 
-var margin = {left:80, right:20, top:50, bottom:100};
+var categories = [
+    "Animals", 
+    "Arts, Culture, Humanities",
+    "Education",
+    "Environment",
+    "Health",
+    "Human Services",
+    "International",
+    "Human and Civil Rights",
+    "Religion",
+    "Community Development",
+    "Research and Public Policy"
+];
 
-var width = 1000 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
 
 
-var g = d3.select("#chart-area")
+const margin = {left:80, right:20, top:100, bottom:100};
+// const height = 500 - margin.top - margin.bottom,
+const height = 650 - margin.top - margin.bottom,
+
+// width = 800 - margin.left - margin.right;
+width = 1100 - margin.left - margin.right;
+
+
+
+const g = d3.select("#chart-area")
     .append("svg")
-        .attr("width", width + margin.left + margin.right)
+        .attr("width", width + margin.top + margin.right)
         .attr("height", height + margin.top + margin.bottom)
     .append("g")
-        .attr("transform", "translate(" + margin.left + ", " + margin.top + ")");
+        .attr("transform", "translate(" + margin.left + 
+        ", " + margin.top + ")");
 
-var categoryID = 0;
 
-//Labels
+
+let stateIndex = 0;
+let interval;
+var formattedData;
+
+//Tooltip
+//returns the object that we're looking at
+var tip = d3.tip().attr("class", "d3-tip")
+    .html(function(d){
+        
+        let text= "<strong>Charity:  </strong><span style='color:white; text-tranform:capitalize'>" + d.charityName + "</span><br>";
+        text+="<strong>Tagline:  </strong><span style='color:white'>" + d.tagLine + "</span><br>";
+        text+="<strong>Cause:  </strong><span style='color:white'>" + d.cause.causeName + "</span><br>";
+        text+="<strong>Web URL:  </strong><span style='color:white'>" + d.websiteURL + "</span><br>";
+        text+="<strong>Overall Rating:  </strong><span style='color:white'>" + d3.format(".2f")(d.currentRating.score) + "</span><br>";
+        text+="<strong>Financial Rating:  </strong><span style='color:white'>" + d3.format(".2f")(d.currentRating.financialRating.score) + "</span><br>";
+        text+="<strong>Accountability Rating:  </strong><span style='color:white'>" + d3.format(".2f")(d.currentRating.accountabilityRating.score) + "</span><br>";
+        text+="<strong>Income Amount:  </strong><span style='color:white'>" + d3.format("$,.0f")(d.irsClassification.incomeAmount) + "</span><br>";
+        text+="<strong>State:  </strong><span style='color:white'>" + d.mailingAddress.stateOrProvince + "</span><br>";
+        text +="<span style='color:white'><img style='min-width:80px' src=" + d.cause.image + "/></span><br>";
+        // text+="<span style='color:white'>" + d.charityNavigatorURL + "</span><br>";
+      
+        return text;
+    });
+//set context for tooltip
+g.call(tip);
+
+//Scales
+let x = d3.scaleLinear()
+    .range(
+        [0, width]
+    );
+
+var y = d3.scaleLinear()
+    .range(
+        [height, 0]
+    );
+
+var area = d3.scaleLinear()    
+    .range(
+        [25*Math.PI, 1500*Math.PI]
+    );
+
+        
+var categoryColor = d3.scaleOrdinal(d3.schemePaired);
+// var categoryColor = d3.scaleOrdinal(d3.schemeSet3); //lighter colors;
+
+
+//LABELS
 var xLabel = g.append("text")
-	.attr("y", height + 50)
-	.attr("x", width/2)
-	.attr("font-size", "20px")
-	.attr("text-anchor", "middle")
-	.text("State");
+    .attr("y", height+50)
+    .attr("x", width/2)
+    .attr("font-size", "20px")
+    .attr("text-anchor", "middle")
+    .text("Overall Rating Score out of 100 (Charity Navigator)");
 
 var yLabel = g.append("text")
-	.attr("y", -60)
-	.attr("x", -170)
-	.attr("font-size", "20px")
-	.attr("text-anchor", "middle")
-	.attr("transform", "rotate(-90)")
-	.text("Income Amount per nonProfit");
-
-var categoryLabel = g.append("text")
-	.attr("y", height - 10)
-	.attr("x", width -40)
-	.attr("font-size", "30px")
-	.attr("opacity", "0.4")
-	.attr("text-anchor", "middle")
-	.text("Animals");
-
-const states = [ "AK",
-"AL","AR","AZ",
-"CA","CO","CT","DC","DE","FL","GA","HI","IA","ID","IL","IN","KS","KY","LA","MA","MD","ME",
-"MI","MN","MO","MS","MT","NC","ND","NE","NH",
-"NJ","NM","NV","NY","OH","OK","OR","PA","PR",
-"RI","SC","SD","TN","TX","UT","VA","VI","VT",
-"WA","WI","WV","WY"];
-
-var x = d3.scaleBand()
-    .domain(states.map(function(state){return state;}))
-    .range([0,width])
-    .paddingInner(0.2)
-    .paddingOuter(0.2);
+    .attr("transform", "rotate(-90)")
+    .attr("y", -40)
+    .attr("x", -170)
+    .attr("font-size", "22px")
+    .attr("text-anchor", "middle")
+    .text("Financial rating out of 100");
 
 
-var xAxisCall = d3.axisBottom(x)
-    .tickValues(states);
-g.append("g")
+var stateLabel = g.append("text")
+    .attr("y", height  - 10)
+    .attr("x", width - 100)
+    .attr("font-size", "40px")
+    .attr("opacity", "0.5")
+    .attr("text-anchor", "middle")
+    .text("DEFAULT State Label");
+
+// //brief description
+// let description = g.append("text")
+//     .attr("y", height + 100)
+//     .attr("x", 200)
+//     .attr("font-size","14px")
+//     .attr("text-anchor","middle")
+//     .text("All data was pulled from API calls from Charity Navigator the week of May 19, 2020. All charities pull had a minimum rating of 3 out of 4.")
+
+// // X AXIS
+//put up here. Don't want to add new axes on top of visualization every time visualization updates. if put g.append("g")
+// in update function, appending a separate group to visualization every time the loop runs and adding a new axis 
+//onto each of these new groups;
+//fix this by appending axis groups just once (HERE) and then by calling axisgenerators in our update function
+//moved the call methods, which run these Access generators into update function
+const xAxisGroup = g.append("g")
     .attr("class", "x axis")
-    .attr("transform", "translate(0, " + height + ")")
-    .call(xAxisCall)
-.selectAll("text")
-    .attr("y", "0")
-    .attr("x", "-15")
-    .attr("text-anchor", "end")
-    .attr("transform", "rotate(-90)");
+    .attr("transform", "translate(0," + height + ")")
+    // .call(xAxisCall);
 
-var y = d3.scaleLog()
-    .base(10)
-    .range([height,0])
-    .domain([5000,150000000]);
-
-
-var yAxisCall = d3.axisLeft(y)
-    .tickFormat(function(d){return +d;})
-    .tickFormat(d3.format(d))
-g.append("g")
+// //Y AXIS -- not sure where the y-axis is coming into play
+const yAxisGroup = g.append("g")
     .attr("class", "y axis")
-    .call(yAxisCall);
+    // .call("yAxisCall");
 
 
-var area = d3.scaleLinear()
-    .domain([3,4])
-    .range([25*Math.PI,50*Math.PI ]);
-    
+//Setting a legend of categories
+var legend = g.append("g")
+    .attr("transform", "translate(" + (width-25) + "," + (height-275)+")");
 
-d3.json("data/dataBig.json").then((data) => {
+categories.forEach(function(category,i){
+    var legendRow = legend.append("g")
+        .attr("transform", "translate(0, " + (i * 20) + ")");
+
+    legendRow.append("rect")
+        .attr("width", 10)
+        .attr("height", 10)
+        .attr("fill", categoryColor(category));
+
+    legendRow.append("text")
+        .attr("x",-10)
+        .attr("y", 10)
+        .attr("text-anchor", "end")
+        .style("text-transform", "capitalize")
+        .text(category);
+    });
+
+
+d3.json("data/totalStatesData.json").then(function(data){
+    console.log("HI");
     console.log(data);
-    const formattedData = data.map(function(category){
-        return category["charities"].filter(function(charity){
-            // var ratingExists = (charity.currentRating.rating);
-            charity.currentRating;
-            // return ratingExists;
-        }).map(function(charity,i){
-        // console.log(category);
-        // category.charities.map(function(charity,i){
-            console.log(charity.category.categoryName);
-            console.log(i);
-            console.log(charity.currentRating.rating);
+
+    //cleaning data
+    formattedData = data.map(function(state){
+        // var dataExists = (charity.financialRating.score && charity.rating && charity.irsClassification.incomeAmount && charity.currentRating.score);
+        return state.charities.filter(function(charity){
+            var dataExists = (charity.currentRating.financialRating.score && charity.currentRating.rating && charity.irsClassification.incomeAmount && charity.currentRating.score);
+            return dataExists;
+        }).map(function(charity){
+            charity.currentRating.financialRating.score  = +charity.currentRating.financialRating.score;
+            charity.irsClassification.incomeAmount = +charity.irsClassification.incomeAmount;
+            charity.currentRating.score = +charity.currentRating.score;
             charity.currentRating.rating = +charity.currentRating.rating;
-            charity.irsClassification.incomeAmount = +charity.irsClassification.incomeAount;
             return charity;
-        });
+        }); 
     });
-    console.log("FORMATTED DATA LENGTH");
-    console.log(formattedData.length);
 
-    d3.interval(function(){
-        categoryID = (categoryID < data.length) ? categoryID + 1 : 0; 
-        console.log("DATALENGTH");
-        console.log(data.length);
-        update(formattedData[categoryID]);}, 1000);
+///////Run the code every 1 seconds
+//    d3.interval(function(){
+//     //At the end of our data, loop back
+//     // time = (time < 51) ? time+1 : 0;
+//     time = (time < 4) ? time+1 : 0;
+//     update(formattedData[time], states[time]);}, 5000);
         
-        //before the 1 second wait, start at index 0 
-        update(formattedData[0]);
+    //First run of the visualization
+    update(formattedData[0], states[0]);
+});
+
+//for play button
+$("#play-button")
+    .on("click", function(){
+        let button = $(this);
+        if(button.text()==="Play"){
+            button.text("Pause");
+            interval = setInterval(step,3000);
+        }else{
+            button.text("Play");
+            clearInterval(interval);
+        }
     });
 
-var ratingColor = d3.scaleOrdinal(d3.schemePastel1);
-
-//each data input represents a big POJO with key categoryID, categoryName
-function update(data){
-    //Standard transition time for visualization
-    
-    
-    
-    // var y = d3.scaleLinear()
-    //     .range([height,0])
-    //     .domain([
-    //         d3.min(data.charities, function(charity){
-    //             return charity.irsClassification.incomeAmount;
-    //         }),
-    //         d3.max(data.charities, function(charity){
-    //             return charity.irsClassification.incomeAmount;
-    //         })
-    //     ]);
-    
-    var t = d3.transition()
-        .duration(1000); 
-
-
-
-    //JOIN new data with old elements
-    var circles = g.selectAll("circle").data(data, function(categoryObj){
-        return categoryObj.mailingAddress.stateOrProvince; 
+$("#reset-button")
+    .on("click", function(){
+        stateIndex = 0; 
+        update(formattedData[stateIndex], states[0]);
     });
 
-    circles.exit()
-        .attr("class", "exit")
-        .remove();
+$("#category-select")
+    .on("change", function(){
+        update(formattedData[stateIndex], states[stateIndex]);
+    });
 
+$("#state-slider").slider({
+    max:50,
+    min:0,
+    step:1,
+    slide:function(event,ui){
+        stateIndex = ui.value; 
+        update(formattedData[stateIndex], states[stateIndex]);
+    }
+})
+
+//whenever called, going to add 1 to value of stateIndex
+function step(){
+    //At the end of our data, loop back
+    // time = (time < 51) ? time+1 : 0;
+    stateIndex = (stateIndex < 20) ? stateIndex+1 : 0;
+    update(formattedData[stateIndex], states[stateIndex]);
+}
+
+function update(data, state){
+    console.log("IN UPDATE FUNCTION, PRINTING OUT DATA AND STATE");
+    console.log("STATE");
+    console.log(state);
+    console.log(data);
+
+    //adding a filter data array
+    let category = $("#category-select").val();
+    console.log(category);
+    data = data.filter(function(d){
+        if(category==="all"){
+            return true;
+        }else {
+            return d.category.categoryName===category;
+        }
+    });
+
+//Scales
+    x.domain([
+    d3.min(data,function(d){return d.currentRating.score;}) - 5,
+    d3.max(data, function(d){return d.currentRating.score;}) + 5
+    ])
+
+    y.domain(
+        [
+            d3.min(data,function(d){return d.currentRating.financialRating.score;}) - 5,
+            d3.max(data, function(d){return d.currentRating.financialRating.score;}) + 5
+        ]
+    )
+
+
+    area.domain(
+        [
+            d3.min(data,function(d){return d.irsClassification.incomeAmount}) - 5,
+            d3.max(data,function(d){return d.irsClassification.incomeAmount}) + 5,
+
+        ]
+    )
+
+
+    ////////////////calls to our axisGenerators are updating current Axis rather than adding new ones///////////////////////
+    // X AXIS
+    var xAxisCall = d3.axisBottom(x)
+        .ticks(10);
+    //Axis group was appended just once at top 
+    xAxisGroup.call(xAxisCall);
+
+
+    //Y AXIS -- not sure where the y-axis is coming into play
+    var yAxisCall = d3.axisLeft(y)
+        .tickFormat(function(d){return +d;});
+    //Axis group was appended just once at top 
+    yAxisGroup.call(yAxisCall);
+   
+
+    //transition time for the visualization
+    let t = d3.transition().duration(1000);
+
+    //JOIN new data with old elements.
+    let circles = g.selectAll("circle").data(data, function(d){
+        return d.charityName;
+    });
+    
+    //EXIT old elements not present in new data
+    circles.exit().attr("class", "exit").remove();
+
+    //ENTER nw elements present in new data.
     circles.enter()
         .append("circle")
         .attr("class", "enter")
-        .attr("fill",function(charity){
-            return ratingColor(charity.currentRating.rating);
+        .attr("fill",function(d){
+            return categoryColor(d.category.categoryID);
         })
+        .on("mouseover", tip.show)
+        .on("mouseout", tip.hide)
         .merge(circles)
         .transition(t)
-            .attr("cy", function(charity){return y(charity.irsClassification.incomeAmount);})
-            .attr("cx", function(charity){return x(charity.mailingAddress.stateOrProvince);})
-            .attr("r", function(charity){return Math.sqrt(area(charity.currentRating.rating)/Math.PI)});
+            .attr("cy",function(d){return y(d.currentRating.financialRating.score)})
+            .attr("cx", function(d){return x(d.currentRating.score)})
+            .attr("r", function(d){return Math.sqrt(area(d.irsClassification.incomeAmount)/Math.PI);});
+    
+     //Update the state label
+     stateLabel.text(state);
+     //so label always get same value as label on bottom of the chart
+     $("#stateName")[0].innerHTML= states[stateIndex];
+     //as visualization updates, we want position of slider to gradually slide to right;
+     $("#state-slider").slider("value", stateIndex);
+}
 
-        
-
-    //ENTER new elements present in new data
-}    
-
-
-
-//var x
-//var y
-//var area
-//var ratingColor 
-        
-// //data.json has charity category ids and names 
-// this works but it takes time for each api call to come back with data and update the array
-// d3.json("data/data.json").then(function(data){
-//     for(let i = 0; i < data.length; i++){
-//         //for each charity cateogry, making a json call to get those charities under that category and storing the array under key (charities) for each corresponding cateogry.
-//         d3.json(apiArray[i]).then(function(data2){
-//             data[i].charities = data2; 
-//             console.log(data2);
-//             console.log(data[i]);
-//         });
-//     }
-//     console.log(data);
-// }).catch(error => console.log(error));
-
+   
 

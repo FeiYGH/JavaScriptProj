@@ -6,27 +6,72 @@
         <title>Charity State Graph</title>
         <!--Bootstrap-->
         <link rel="stylesheet" href="css/bootstrap.min.css">
+        <!-- jQuery UI CSS -->
+        <link rel="stylesheet" href="css/jquery-ui.min.css">
+        <link rel="stylesheet" href="css/jquery-ui.structure.min.css">
+        <link rel="stylesheet" href="css/jquery-ui.theme.min.css">
+        <!-- D3 Tooltip CSS -->
+        <link rel="stylesheet" href="css/d3-tip.css">
         <!-- Custom styling -->
         <link rel="stylesheet" href ="css/style.css">
+        <link rel="shortcut icon" href="#" />
     </head>
     <body>
         <nav class = "navbar navbar-default">
             <div class="container">
-                
+                <h1>Comparing Charities Over 50 States</h1>
+                <h4>&nbsp;Circles represent the charities. Circle sizes are proportional to financial incomes. <br/><span id="instructions">&nbsp;Hover over any circle to see more info.</span></h4>
             </div>
         </nav>
 
         <!--Boostrap grid setup-->
         <div class="container">
             <div class="row">
-                <div id="chart-area"></div>
+                <div class ="col-md-6"> 
+                    <button id="play-button" class="btn btn-primary">Play</button>
+                    <button id="reset-button" class="btn btn-primary">Reset</button>
+                    <div id="slider-div">
+                        <label id="sliderLabel">State: <span id="stateName">Alabama</span></label>
+                        <div id="state-slider"></div>
+                    </div>
+                </div>
+                <div class= "col-md-6">
+                    <select id ="category-select" class="form-control">
+                        <option selected value="all">ALL</option>
+                        <option value="Animals">Animals</option>
+                        <option value="Arts, Culture, Humanities">Arts, Culture, Humanities</option>
+                        <option value="Education">Education</option>
+                        <option value="Environment">Environment</option>
+                        <option value="Health">Health</option>
+                        <option value="Human Services">Human Services</option>
+                        <option value="International">International</option>
+                        <option value="Human and Civil Rights">Human And Civil Rights</option>
+                        <option value="Religion">Religion</option>
+                        <option value="Community Development">Community Development</option>
+                        <option value="Research and Public Policy">Research and Public Policy</option>
+                    </select>
+                </div>
+
             </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="chart-area"></div>
+                </div>
+            </div>
+            <div class="row"> 
+                <p id="infoAboutStats">*Credits: All charities represented have a minimum rating of 3 out of 4. All data was pulled from Charity Navigator API during the week of May 18, 2020.</p>
+            </div>
+            
         </div>
 
         <!--External JS libraries-->
         <script src="js/jquery.min.js"></script>
+        <script src="js/jquery-ui.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/d3.min.js"></script>
+        <!-- Library for tooltip -->
+        <script src="js/d3-tip.js"></script>
+
         <!-- Custom JS -->
         <script src="js/main.js"></script>
         
