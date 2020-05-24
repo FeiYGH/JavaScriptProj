@@ -12,7 +12,7 @@ const states = [
     'Colorado',
     'Connecticut',
     'Delaware',
-    'District of Columbia',
+    'Dist. of Columbia',
     'Florida',
     'Georgia',
     'Hawaii',
@@ -43,22 +43,21 @@ const states = [
     'Oklahoma',
     'Oregon',
     'Pennsylvania',
+    'Puerto Rico',
     'Rhode Island',
     'South Carolina',
     'South Dakota',
     'Tennessee',
     'Texas',
-
     'Utah',
-    'Vermont',
+    'Vermont', 
     'Virgin Islands',
     'Virginia',
-
     'Washington',
     'West Virginia',
     'Wisconsin',
     'Wyoming'
-]
+];
 
 var categories = [
     "Animals", 
@@ -161,7 +160,7 @@ var yLabel = g.append("text")
 
 var stateLabel = g.append("text")
     .attr("y", height  - 10)
-    .attr("x", width - 100)
+    .attr("x", width - 110)
     .attr("font-size", "40px")
     .attr("opacity", "0.5")
     .attr("text-anchor", "middle")
@@ -269,20 +268,20 @@ $("#category-select")
     });
 
 $("#state-slider").slider({
-    max:51,
+    max:52,
     min:0,
     step:1,
     slide:function(event,ui){
         stateIndex = ui.value; 
         update(formattedData[stateIndex], states[stateIndex]);
     }
-})
+});
 
 //whenever called, going to add 1 to value of stateIndex
 function step(){
     //At the end of our data, loop back
     // time = (time < 51) ? time+1 : 0;
-    stateIndex = (stateIndex < 51) ? stateIndex+1 : 0;
+    stateIndex = (stateIndex < 52) ? stateIndex+1 : 0;
     update(formattedData[stateIndex], states[stateIndex]);
 }
 
