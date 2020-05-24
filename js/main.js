@@ -269,7 +269,7 @@ $("#category-select")
     });
 
 $("#state-slider").slider({
-    max:50,
+    max:51,
     min:0,
     step:1,
     slide:function(event,ui){
