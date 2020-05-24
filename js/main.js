@@ -12,7 +12,7 @@ const states = [
     'Colorado',
     'Connecticut',
     'Delaware',
-    'District of Columbia',
+    'Dist. of Columbia',
     'Florida',
     'Georgia',
     'Hawaii',
@@ -25,38 +25,39 @@ const states = [
     'Louisiana',
     'Maine',
     'Maryland',
-
-    // 'Massachusetts',
-    // 'Michigan',
-    // 'Minnesota',
-    // 'Mississippi',
-    // 'Missouri',
-    // 'Montana',
-    // 'Nebraska',
-    // 'Nevada',
-    // 'New Hampshire',
-    // 'New Jersey',
-    // 'New Mexico',
-    // 'New York',
-    // 'North Carolina',
-    // 'North Dakota',
-    // 'Ohio',
-    // 'Oklahoma',
-    // 'Oregon',
-    // 'Pennsylvania',
-    // 'Rhode Island',
-    // 'South Carolina',
-    // 'South Dakota',
-    // 'Tennessee',
-    // 'Texas',
-    // 'Utah',
-    // 'Vermont',
-    // 'Virginia',
-    // 'Washington',
-    // 'West Virginia',
-    // 'Wisconsin',
-    // 'Wyoming'
-]
+    'Massachusetts',
+    'Michigan',
+    'Minnesota',
+    'Mississippi',
+    'Missouri',
+    'Montana',
+    'Nebraska',
+    'Nevada',
+    'New Hampshire',
+    'New Jersey',
+    'New Mexico',
+    'New York',
+    'North Carolina',
+    'North Dakota',
+    'Ohio',
+    'Oklahoma',
+    'Oregon',
+    'Pennsylvania',
+    'Puerto Rico',
+    'Rhode Island',
+    'South Carolina',
+    'South Dakota',
+    'Tennessee',
+    'Texas',
+    'Utah',
+    'Vermont', 
+    'Virgin Islands',
+    'Virginia',
+    'Washington',
+    'West Virginia',
+    'Wisconsin',
+    'Wyoming'
+];
 
 var categories = [
     "Animals", 
@@ -159,7 +160,7 @@ var yLabel = g.append("text")
 
 var stateLabel = g.append("text")
     .attr("y", height  - 10)
-    .attr("x", width - 100)
+    .attr("x", width - 110)
     .attr("font-size", "40px")
     .attr("opacity", "0.5")
     .attr("text-anchor", "middle")
@@ -267,20 +268,20 @@ $("#category-select")
     });
 
 $("#state-slider").slider({
-    max:50,
+    max:52,
     min:0,
     step:1,
     slide:function(event,ui){
         stateIndex = ui.value; 
         update(formattedData[stateIndex], states[stateIndex]);
     }
-})
+});
 
 //whenever called, going to add 1 to value of stateIndex
 function step(){
     //At the end of our data, loop back
     // time = (time < 51) ? time+1 : 0;
-    stateIndex = (stateIndex < 20) ? stateIndex+1 : 0;
+    stateIndex = (stateIndex < 52) ? stateIndex+1 : 0;
     update(formattedData[stateIndex], states[stateIndex]);
 }
 
@@ -289,6 +290,8 @@ function update(data, state){
     console.log("STATE");
     console.log(state);
     console.log(data);
+    console.log("NUMBER OF STATES");
+    console.log(states.length);
 
     //adding a filter data array
     let category = $("#category-select").val();
