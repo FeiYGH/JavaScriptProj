@@ -25,37 +25,37 @@ const states = [
     'Louisiana',
     'Maine',
     'Maryland',
-
-    // 'Massachusetts',
-    // 'Michigan',
-    // 'Minnesota',
-    // 'Mississippi',
-    // 'Missouri',
-    // 'Montana',
-    // 'Nebraska',
-    // 'Nevada',
-    // 'New Hampshire',
-    // 'New Jersey',
-    // 'New Mexico',
-    // 'New York',
-    // 'North Carolina',
-    // 'North Dakota',
-    // 'Ohio',
-    // 'Oklahoma',
-    // 'Oregon',
-    // 'Pennsylvania',
-    // 'Rhode Island',
-    // 'South Carolina',
-    // 'South Dakota',
-    // 'Tennessee',
-    // 'Texas',
-    // 'Utah',
-    // 'Vermont',
-    // 'Virginia',
-    // 'Washington',
-    // 'West Virginia',
-    // 'Wisconsin',
-    // 'Wyoming'
+    'Massachusetts',
+    'Michigan',
+    'Minnesota',
+    'Mississippi',
+    'Missouri',
+    'Montana',
+    'Nebraska',
+    'Nevada',
+    'New Hampshire',
+    'New Jersey',
+    'New Mexico',
+    'New York',
+    'North Carolina',
+    'North Dakota',
+    'Ohio',
+    'Oklahoma',
+    'Oregon',
+    'Pennsylvania',
+    'Rhode Island',
+    'South Carolina',
+    'South Dakota',
+    'Tennessee',
+    'Texas',
+    'Utah',
+    'Vermont',
+    'Virgin Islands',
+    'Virginia',
+    'Washington',
+    'West Virginia',
+    'Wisconsin',
+    'Wyoming'
 ]
 
 var categories = [
@@ -280,7 +280,7 @@ $("#state-slider").slider({
 function step(){
     //At the end of our data, loop back
     // time = (time < 51) ? time+1 : 0;
-    stateIndex = (stateIndex < 20) ? stateIndex+1 : 0;
+    stateIndex = (stateIndex < 51) ? stateIndex+1 : 0;
     update(formattedData[stateIndex], states[stateIndex]);
 }
 
