@@ -282,7 +282,7 @@ $("#state-slider").slider({
 function step(){
     //At the end of our data, loop back
     // time = (time < 51) ? time+1 : 0;
-    stateIndex = (stateIndex < 20) ? stateIndex+1 : 0;
+    stateIndex = (stateIndex < 51) ? stateIndex+1 : 0;
     update(formattedData[stateIndex], states[stateIndex]);
 }
 
@@ -291,6 +291,8 @@ function update(data, state){
     console.log("STATE");
     console.log(state);
     console.log(data);
+    console.log("NUMBER OF STATES");
+    console.log(states.length);
 
     //adding a filter data array
     let category = $("#category-select").val();
