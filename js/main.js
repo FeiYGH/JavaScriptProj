@@ -43,17 +43,16 @@ const states = [
     'Oklahoma',
     'Oregon',
     'Pennsylvania',
+    'Puerto Rico',
     'Rhode Island',
     'South Carolina',
     'South Dakota',
     'Tennessee',
     'Texas',
-
     'Utah',
-    'Vermont',
+    'Vermont', 
     'Virgin Islands',
     'Virginia',
-
     'Washington',
     'West Virginia',
     'Wisconsin',
@@ -269,20 +268,20 @@ $("#category-select")
     });
 
 $("#state-slider").slider({
-    max:51,
+    max:52,
     min:0,
     step:1,
     slide:function(event,ui){
         stateIndex = ui.value; 
         update(formattedData[stateIndex], states[stateIndex]);
     }
-})
+});
 
 //whenever called, going to add 1 to value of stateIndex
 function step(){
     //At the end of our data, loop back
     // time = (time < 51) ? time+1 : 0;
-    stateIndex = (stateIndex < 51) ? stateIndex+1 : 0;
+    stateIndex = (stateIndex < 52) ? stateIndex+1 : 0;
     update(formattedData[stateIndex], states[stateIndex]);
 }
 

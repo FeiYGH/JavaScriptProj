@@ -174,3 +174,16 @@ select:active, select:hover {
 	margin-top:0px;
 	padding-top:0px;
 }
+
+img{
+	width:30px;
+	/* border:1px solid black; */
+	border-radius:3px;
+	float:right;
+	margin-left:3px;
+}
+
+img:hover{
+	cursor:pointer;
+	opacity:.5;
+}
