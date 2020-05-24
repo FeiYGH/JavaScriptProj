@@ -12,7 +12,7 @@ const states = [
     'Colorado',
     'Connecticut',
     'Delaware',
-    'District of Columbia',
+    'Dist. of Columbia',
     'Florida',
     'Georgia',
     'Hawaii',
@@ -57,7 +57,7 @@ const states = [
     'West Virginia',
     'Wisconsin',
     'Wyoming'
-]
+];
 
 var categories = [
     "Animals", 
@@ -160,7 +160,7 @@ var yLabel = g.append("text")
 
 var stateLabel = g.append("text")
     .attr("y", height  - 10)
-    .attr("x", width - 100)
+    .attr("x", width - 110)
     .attr("font-size", "40px")
     .attr("opacity", "0.5")
     .attr("text-anchor", "middle")
