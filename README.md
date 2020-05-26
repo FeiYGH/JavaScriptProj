@@ -1,13 +1,10 @@
-* Charity graph 
+* Comparing Charities Over 50 State and Territories
+** An interactive graph that depicts 11 categories of nonprofits across US states and territories. 
 
-* Data Prep and Cleaning
-
-Data was obtained from the website: 
+1. Each charity to be represented by a circle, colored ordinally based upon charity category, where size is proportional to its income.
+2. Data about all charities are gathered from API calls to Charity Navigator.
 https://www.charitynavigator.org/index.cfm?bay=content.view&cpid=1397
-
-An interactive graph that depicts 11 categories of nonprofits across US states and territories. 
-Designed each charity to be represented by a circle, colored ordinally based upon category, where size is proportional to its income.
-Data about all charities are gathered from API calls to Charity Navigator.
-Set up a filter where user can selectively show one category or all categories of nonprofits.
-Graph plays through data from all the states; user can pause and continue the presentation. 
-Set up a state  slider allowing user  to go to whatever state they want
+3. Set up a filter where user can selectively show one category or all categories of nonprofits.
+4. Graph plays through data from all the states.
+5. I put in buttons "Play" and "Pause" to allow user to play and pause through the presentation. 
+6. Set up a state slider allowing user to go to whatever state they want
