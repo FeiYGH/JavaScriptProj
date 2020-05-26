@@ -1,5 +1,5 @@
-* Comparing Charities Over 50 State and Territories
-** An interactive graph that depicts 11 categories of nonprofits across US states and territories. 
+#Comparing Charities Over 50 State and Territories
+## An interactive graph that depicts 11 categories of nonprofits across US states and territories. 
 
 1. Each charity to be represented by a circle, colored ordinally based upon charity category, where size is proportional to its income.
 2. Data about all charities are gathered from API calls to Charity Navigator.
