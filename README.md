@@ -4,6 +4,8 @@
 [Live Site](https://feiygh.github.io/JavaScriptProj/)
 This projects uses D3.js library and JavaScript. I set state transitions to be one second. 
 
+![Site picture](https://github.com/FeiYGH/JavaScriptProj/blob/master/ReadmeImages/Screen%20Shot%202020-05-24%20at%207.06.24%20PM.png)
+
 ## Features
 1. Each charity to be represented by a circle, colored ordinally based upon charity category, where size is proportional to its income.
 2. Data about all charities are gathered from API calls to Charity Navigator.
