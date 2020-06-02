@@ -158,8 +158,8 @@ var stateLabel = g.append("text")
 
 
 d3.json("data/totalStatesData.json").then(function(data){
-    console.log("HI");
-    console.log(data);
+    // console.log("HI");
+    // console.log(data);
 
     //cleaning data
     const formattedData = data.map(function(state){
@@ -188,10 +188,10 @@ d3.json("data/totalStatesData.json").then(function(data){
 })
 
 function update(data, state){
-    console.log("IN UPDATE FUNCTION, PRINTING OUT DATA AND STAT")
-    console.log("STATE")
-    console.log(state);
-    console.log(data);
+    // console.log("IN UPDATE FUNCTION, PRINTING OUT DATA AND STAT")
+    // console.log("STATE")
+    // console.log(state);
+    // console.log(data);
 
 //Scales
 let x = d3.scaleLinear()
