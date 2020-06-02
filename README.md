@@ -108,3 +108,21 @@ $("#reset-button")
     });
 
 ```
+
+### State Slider 
+![State slider](https://github.com/FeiYGH/JavaScriptProj/blob/gh-pages/ReadmeImages/stateSlider.gif)
+
+User can slide to any state to look at the data instead of waiting through 53 states and territories.
+The state slider is an element on index.html. In main.js, we pull the element. I used D3.js to make a slider with range of 53 (for the 53 states and territories). When user moves the slier, the event location is tracked and the update function is called with the same index as value of the slider 
+
+```javascript
+$("#state-slider").slider({
+    max:52,
+    min:0,
+    step:1,
+    slide:function(event,ui){
+        stateIndex = ui.value; 
+        update(formattedData[stateIndex], states[stateIndex]);
+    }
+});
+```
