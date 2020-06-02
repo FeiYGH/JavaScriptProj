@@ -214,8 +214,8 @@ categories.forEach(function(category,i){
 
 
 d3.json("data/totalStatesData.json").then(function(data){
-    console.log("HI");
-    console.log(data);
+    // console.log("HI");
+    // console.log(data);
 
     //cleaning data
     formattedData = data.map(function(state){
@@ -256,6 +256,7 @@ $("#play-button")
         }
     });
 
+///for reset button
 $("#reset-button")
     .on("click", function(){
         stateIndex = 0; 
@@ -286,16 +287,16 @@ function step(){
 }
 
 function update(data, state){
-    console.log("IN UPDATE FUNCTION, PRINTING OUT DATA AND STATE");
-    console.log("STATE");
-    console.log(state);
-    console.log(data);
-    console.log("NUMBER OF STATES");
-    console.log(states.length);
+    // console.log("IN UPDATE FUNCTION, PRINTING OUT DATA AND STATE");
+    // console.log("STATE");
+    // console.log(state);
+    // console.log(data);
+    // console.log("NUMBER OF STATES");
+    // console.log(states.length);
 
     //adding a filter data array
     let category = $("#category-select").val();
-    console.log(category);
+    // console.log(category);
     data = data.filter(function(d){
         if(category==="all"){
             return true;
