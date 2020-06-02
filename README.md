@@ -17,6 +17,7 @@ https://www.charitynavigator.org/index.cfm?bay=content.view&cpid=1397
 
 ## Code
 ### State transitions
+
 State transitions are based upon D3.js steps of joining new data with old elements, exiting old elements that are not present in the data, and entering the new elements not present in new data. I set each state to be there for three seconds before graph shows the next state. I set the transition time to be 1 second. The axis are recalculated and changed to fit each state.
 
 ```javascript
@@ -57,6 +58,7 @@ Circles sizes are represented by the charity income amount. I calculated the rad
 ```
 
 ### Charity category filter
+![state category filter](https://github.com/FeiYGH/JavaScriptProj/blob/gh-pages/ReadmeImages/stateCategoryFilter.gif)
 The filter is a select element on index.html with 12 different values that represent all to each category. In the JavaScript file, when changed (with an eventhandler), it calls the update function. The update function pulls the value from the select category and filter charities based upon that value.
 
 ```javascript
@@ -80,6 +82,7 @@ $("#category-select")
 ```
 
 ### Play, Pause, and Reset Buttons
+![state transition](https://github.com/FeiYGH/JavaScriptProj/blob/gh-pages/ReadmeImages/statetransitions.gif)
 "Play" and "Pause" are one button on index.html. When clicked, the button text is checked whether it is "play" or "pause." If "play", then the button's text is changed to "pause", and setInterval is called with interval set to 3 seconds and a function step is passed. "step" increments the index of which state and calls the update function again. If "pause", then the button's text is changed to "play" and function clearInterval is called to stop the loop.
 "Reset" button is a button on index.html. In main.js, when clicked, it calls the update function with the stateIndex set back to 0.
 
