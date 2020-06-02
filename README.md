@@ -2,7 +2,7 @@
 ### An interactive graph that depicts 11 categories of nonprofits across US states and territories. 
 
 [Live Site](https://feiygh.github.io/JavaScriptProj/)
-#### This projects uses D3.js library (JavaScript) and HTML/CSS. Data was gathered from API calls to Charity Navigator. When user presses play, the graph transitions through each state and territory (total of 53) showing all 11 nonprofit categories, allowing three seconds for each state.
+#### This projects uses D3.js library (JavaScript) and HTML/CSS. Data was gathered from API calls to Charity Navigator. When user presses "Play", the graph transitions through each state and territory (total of 53) showing all 11 nonprofit categories, allowing three seconds for each state.
 
 ![Site picture](https://github.com/FeiYGH/JavaScriptProj/blob/master/ReadmeImages/Screen%20Shot%202020-05-24%20at%207.06.24%20PM.png)
 
