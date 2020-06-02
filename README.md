@@ -2,7 +2,7 @@
 ### An interactive graph that depicts 11 categories of nonprofits across US states and territories. 
 
 [Live Site](https://feiygh.github.io/JavaScriptProj/)
-This projects uses D3.js library and JavaScript. I set state transitions to be one second. 
+#### This projects uses D3.js library and JavaScript. I set state transitions to be one second. 
 
 ![Site picture](https://github.com/FeiYGH/JavaScriptProj/blob/master/ReadmeImages/Screen%20Shot%202020-05-24%20at%207.06.24%20PM.png)
 
