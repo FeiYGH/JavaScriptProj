@@ -354,7 +354,7 @@ function update(data, state){
     //EXIT old elements not present in new data
     circles.exit().attr("class", "exit").remove();
 
-    //ENTER nw elements present in new data.
+    //ENTER new elements present in new data.
     circles.enter()
         .append("circle")
         .attr("class", "enter")
