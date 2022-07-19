@@ -4,7 +4,7 @@
 [Live Site](https://feiygh.github.io/JavaScriptProj/)
 #### This projects uses D3.js library (JavaScript) and HTML/CSS. Data was gathered from API calls to Charity Navigator. When user presses "Play", the graph transitions through each state and territory (total of 53) showing all 11 nonprofit categories, allowing three seconds for each state.
 
-![Site picture](https://github.com/FeiYGH/JavaScriptProj/blob/master/ReadmeImages/Screen%20Shot%202020-05-24%20at%207.06.24%20PM.png)
+![Site picture](https://github.com/FeiYGH/JavaScriptProj/blob/master/ReadmeImages/Screen Shot 2020-05-24 at 7.06.24 PM.png)
 
 ## Features
 1. Each charity to be represented by a circle, colored ordinally based upon charity category, where size is proportional to its income.
